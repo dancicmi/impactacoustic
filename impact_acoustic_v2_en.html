@@ -1,0 +1,335 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.ia{font-family:var(--font-sans)}
+.ia-nav{background:#111;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+.ia-logo-mark{width:30px;height:30px;flex-shrink:0}
+.ia-nav-name{color:#fff;font-size:14px;font-weight:500;letter-spacing:0.2px}
+.ia-nav-sub{color:rgba(255,255,255,0.4);font-size:10px;letter-spacing:1.2px;text-transform:uppercase;margin-top:1px}
+.ia-nav-badge{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);font-size:10px;padding:4px 10px;border-radius:4px;letter-spacing:0.5px;text-transform:uppercase}
+.body{padding:22px}
+.sh{font-size:10px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:1px;margin-bottom:9px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:14px}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.fld{display:flex;flex-direction:column;gap:4px}
+.fld label{font-size:11px;color:var(--color-text-secondary);font-weight:500}
+.fld input,.fld select{height:34px;padding:0 10px;border:0.5px solid var(--color-border-secondary);border-radius:6px;background:var(--color-background-primary);color:var(--color-text-primary);font-size:13px;font-family:var(--font-sans);width:100%}
+.fld input:focus,.fld select:focus{outline:none;border-color:#111}
+.pcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.pcard{border:0.5px solid var(--color-border-secondary);border-radius:8px;padding:14px;cursor:pointer;transition:border-color 0.15s;background:var(--color-background-primary)}
+.pcard.sel{border:1.5px solid #111;background:var(--color-background-secondary)}
+.pcard-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.pcard-name{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.pcard-dim{font-size:10px;color:var(--color-text-tertiary);margin-top:2px}
+.pcard-price{font-size:14px;font-weight:500;color:var(--color-text-primary);text-align:right}
+.pcard-psub{font-size:10px;color:var(--color-text-tertiary);text-align:right;margin-top:1px}
+.pills{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.pill{font-size:10px;padding:2px 7px;border-radius:10px;border:0.5px solid var(--color-border-tertiary);color:var(--color-text-secondary)}
+.pill.hi{background:#111;border-color:#111;color:#fff}
+.cta{width:100%;height:40px;background:#111;color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--font-sans);transition:opacity 0.15s;margin-top:2px}
+.cta:hover{opacity:0.82}
+.hr{height:0.5px;background:var(--color-border-tertiary);margin:20px 0}
+.res{display:none}
+.res.show{display:block}
+.krow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:10px}
+.k{background:var(--color-background-secondary);border-radius:8px;padding:11px 12px}
+.k.dk{background:#111}
+.klb{font-size:10px;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:4px}
+.k.dk .klb{color:rgba(255,255,255,0.4)}
+.kv{font-size:21px;font-weight:500;color:var(--color-text-primary)}
+.k.dk .kv{color:#fff}
+.ku{font-size:11px;color:var(--color-text-secondary)}
+.k.dk .ku{color:rgba(255,255,255,0.45)}
+.rt-vis{background:var(--color-background-secondary);border-radius:8px;padding:13px;margin-bottom:10px}
+.rtrow{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.rtrow:last-of-type{margin-bottom:0}
+.rtlbl{font-size:11px;color:var(--color-text-secondary);width:60px;flex-shrink:0}
+.rttrack{flex:1;height:5px;background:var(--color-border-tertiary);border-radius:3px;overflow:hidden}
+.rtfill{height:100%;border-radius:3px;transition:width 0.5s ease}
+.rtv{font-size:12px;font-weight:500;color:var(--color-text-primary);width:36px;text-align:right}
+.opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:10px}
+.opt{border:0.5px solid var(--color-border-tertiary);border-radius:8px;padding:12px;position:relative}
+.opt.best{border:1.5px solid #111}
+.obadge{position:absolute;top:0;right:10px;transform:translateY(-50%);background:#111;color:#fff;font-size:9px;font-weight:500;padding:2px 7px;border-radius:3px;letter-spacing:0.5px;text-transform:uppercase}
+.oname{font-size:11px;font-weight:500;color:var(--color-text-primary);margin-bottom:7px}
+.orow{display:flex;justify-content:space-between;margin-bottom:3px}
+.olk{font-size:10px;color:var(--color-text-secondary)}
+.olv{font-size:11px;font-weight:500;color:var(--color-text-primary)}
+.oprice{font-size:19px;font-weight:500;color:var(--color-text-primary);margin-top:8px;border-top:0.5px solid var(--color-border-tertiary);padding-top:8px}
+.opsub{font-size:10px;color:var(--color-text-secondary)}
+.mix-card{background:var(--color-background-secondary);border-radius:8px;padding:14px;margin-bottom:10px}
+.mix-bar{height:7px;border-radius:4px;display:flex;overflow:hidden;margin:8px 0 5px}
+.seg12{background:#888;transition:width 0.4s ease}
+.seg24{background:#111;transition:width 0.4s ease}
+.mix-leg{display:flex;gap:14px}
+.ldot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:2px}
+.llbl{font-size:11px;color:var(--color-text-secondary)}
+.slider-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.slider-row label{font-size:11px;color:var(--color-text-secondary);width:96px;flex-shrink:0}
+.slider-row input[type=range]{flex:1}
+.slider-row .sv{font-size:12px;font-weight:500;color:var(--color-text-primary);min-width:40px;text-align:right}
+.rec{border-radius:8px;padding:11px 13px;margin-top:8px}
+.rec-ok{background:var(--color-background-success)}
+.rec-md{background:var(--color-background-warning)}
+.rec-hi{background:var(--color-background-danger)}
+.rec-t{font-size:12px;font-weight:500;margin-bottom:2px}
+.rec-ok .rec-t{color:var(--color-text-success)}
+.rec-md .rec-t{color:var(--color-text-warning)}
+.rec-hi .rec-t{color:var(--color-text-danger)}
+.rec-b{font-size:11px;color:var(--color-text-secondary);line-height:1.5}
+.note{font-size:10px;color:var(--color-text-tertiary);margin-top:10px;line-height:1.5}
+.mix-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:8px}
+.ms{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:6px;padding:8px 10px}
+.mslb{font-size:10px;color:var(--color-text-tertiary);margin-bottom:3px}
+.msv{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+</style>
+
+<div class="ia">
+<div class="ia-nav">
+  <div style="display:flex;align-items:center;gap:10px">
+    <svg class="ia-logo-mark" viewBox="0 0 30 30" fill="none">
+      <rect width="30" height="30" rx="4" fill="#111"/>
+      <path d="M3 21 C5 21 7 15 9 15 C11 15 11 9 13 9 C15 9 15 21 17 21 C19 21 19 13 21 13 C23 13 24 17 27 17" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+    <div>
+      <div class="ia-nav-name">Impact Acoustic</div>
+      <div class="ia-nav-sub">ARCHISONIC® Calculator</div>
+    </div>
+  </div>
+  <div class="ia-nav-badge">RT60 + Cost Optimizer</div>
+</div>
+
+<div class="body">
+
+<div class="sh">Room dimensions</div>
+<div class="g3">
+  <div class="fld"><label>Length (m)</label><input type="number" id="len" placeholder="8" min="1" step="0.1"></div>
+  <div class="fld"><label>Width (m)</label><input type="number" id="wid" placeholder="6" min="1" step="0.1"></div>
+  <div class="fld"><label>Height (m)</label><input type="number" id="hei" placeholder="3" min="1" step="0.1"></div>
+</div>
+
+<div class="sh">Surface materials</div>
+<div class="g3">
+  <div class="fld"><label>Floor</label>
+    <select id="mf">
+      <option value="0.02">Concrete (0.02)</option>
+      <option value="0.10">Hardwood / laminate (0.10)</option>
+      <option value="0.50">Carpet (0.50)</option>
+    </select>
+  </div>
+  <div class="fld"><label>Walls</label>
+    <select id="mw">
+      <option value="0.02">Concrete (0.02)</option>
+      <option value="0.05">Plaster / drywall (0.05)</option>
+      <option value="0.05">Glass (0.05)</option>
+    </select>
+  </div>
+  <div class="fld"><label>Ceiling</label>
+    <select id="mc">
+      <option value="0.02">Concrete (0.02)</option>
+      <option value="0.05">Plaster (0.05)</option>
+      <option value="0.55">Suspended — mineral fibre (0.55)</option>
+    </select>
+  </div>
+</div>
+
+<div class="sh">ARCHISONIC® Felt — select panel</div>
+<div class="pcards">
+  <div class="pcard" id="pc12" onclick="selProd('12')">
+    <div class="pcard-top">
+      <div>
+        <div class="pcard-name">ARCHISONIC® 12 mm</div>
+        <div class="pcard-dim">Panel 280 × 120 cm · 3.36 m²/panel</div>
+      </div>
+      <div>
+        <div class="pcard-price">€282</div>
+        <div class="pcard-psub">per panel</div>
+      </div>
+    </div>
+    <div class="pills">
+      <span class="pill">NRC 0.60</span>
+      <span class="pill">αw 0.65</span>
+      <span class="pill">€84/m²</span>
+      <span class="pill">60% recycled PET</span>
+    </div>
+  </div>
+  <div class="pcard sel" id="pc24" onclick="selProd('24')">
+    <div class="pcard-top">
+      <div>
+        <div class="pcard-name">ARCHISONIC® 24 mm</div>
+        <div class="pcard-dim">Panel 240 × 180 cm · 4.32 m²/panel</div>
+      </div>
+      <div>
+        <div class="pcard-price">€514</div>
+        <div class="pcard-psub">per panel</div>
+      </div>
+    </div>
+    <div class="pills">
+      <span class="pill hi">NRC 0.90</span>
+      <span class="pill hi">αw 0.95</span>
+      <span class="pill">€119/m²</span>
+      <span class="pill">60% recycled PET</span>
+    </div>
+  </div>
+</div>
+
+<button class="cta" onclick="calc()">Calculate RT60 & Cost →</button>
+
+<div class="res" id="res">
+  <div class="hr"></div>
+
+  <div class="sh">Room overview</div>
+  <div class="krow" id="krow1"></div>
+  <div class="krow" id="krow2"></div>
+
+  <div class="sh">RT60 visualisation</div>
+  <div class="rt-vis" id="rtvis"></div>
+
+  <div class="sh">Cost comparison — all options</div>
+  <div class="opts" id="opts"></div>
+
+  <div class="sh">Mix optimizer — 12 mm + 24 mm combination</div>
+  <div class="mix-card">
+    <div style="font-size:11px;color:var(--color-text-secondary);margin-bottom:10px">Drag the slider to find the best price/performance split. The calculator keeps total absorption constant.</div>
+    <div class="slider-row">
+      <label>24 mm share</label>
+      <input type="range" id="mix-sl" min="0" max="100" value="50" step="1" oninput="updateMix(this.value)">
+      <span class="sv" id="mix-pct">50%</span>
+    </div>
+    <div class="mix-bar" id="mix-bar">
+      <div class="seg24" id="seg24" style="width:50%"></div>
+      <div class="seg12" id="seg12" style="width:50%"></div>
+    </div>
+    <div class="mix-leg">
+      <div style="display:flex;align-items:center;gap:5px"><div class="ldot" style="background:#111"></div><span class="llbl">24 mm (NRC 0.90)</span></div>
+      <div style="display:flex;align-items:center;gap:5px"><div class="ldot" style="background:#888"></div><span class="llbl">12 mm (NRC 0.60)</span></div>
+    </div>
+    <div class="mix-summary" id="mix-summary"></div>
+  </div>
+
+  <div id="rec-box"></div>
+
+  <div class="note" id="foot-note"></div>
+</div>
+
+</div>
+</div>
+
+<script>
+let prod = '24';
+let aN = 0;
+
+function selProd(t){
+  prod = t;
+  document.getElementById('pc12').classList.toggle('sel', t==='12');
+  document.getElementById('pc24').classList.toggle('sel', t==='24');
+}
+
+function calc(){
+  const L = parseFloat(document.getElementById('len').value);
+  const W = parseFloat(document.getElementById('wid').value);
+  const H = parseFloat(document.getElementById('hei').value);
+  const nF = parseFloat(document.getElementById('mf').value);
+  const nW = parseFloat(document.getElementById('mw').value);
+  const nC = parseFloat(document.getElementById('mc').value);
+  if(!L||!W||!H||L<=0||W<=0||H<=0){alert('Please enter valid room dimensions.');return;}
+
+  const V = L*W*H;
+  const sF = L*W, sC = L*W, sWall = 2*(L*H)+2*(W*H), sT = sF+sC+sWall;
+  const aCur = sF*nF + sWall*nW + sC*nC;
+  const rt60c = 0.161*V/aCur;
+  const rt60t = 0.32*Math.log10(V) - 0.17;
+  const aTgt = 0.161*V/rt60t;
+  aN = Math.max(0, aTgt - aCur);
+
+  const m12 = aN/0.60, m24 = aN/0.90;
+  const p12 = Math.ceil(m12/3.36)*282;
+  const p24 = Math.ceil(m24/4.32)*514;
+  const panels12 = Math.ceil(m12/3.36);
+  const panels24 = Math.ceil(m24/4.32);
+  const pct = (prod==='24' ? m24 : m12)/sT*100;
+
+  document.getElementById('res').classList.add('show');
+
+  document.getElementById('krow1').innerHTML = `
+    <div class="k"><div class="klb">Volume</div><div class="kv">${V.toFixed(1)} <span class="ku">m³</span></div></div>
+    <div class="k"><div class="klb">Total surface</div><div class="kv">${sT.toFixed(1)} <span class="ku">m²</span></div></div>
+    <div class="k"><div class="klb">Current absorption</div><div class="kv">${aCur.toFixed(1)} <span class="ku">Sab</span></div></div>`;
+  document.getElementById('krow2').innerHTML = `
+    <div class="k ${rt60c>rt60t*1.4?'dk':''}"><div class="klb">Current RT60</div><div class="kv">${rt60c.toFixed(2)} <span class="ku">s</span></div></div>
+    <div class="k dk"><div class="klb">Target RT60</div><div class="kv">${rt60t.toFixed(2)} <span class="ku">s</span></div></div>
+    <div class="k"><div class="klb">Absorption needed</div><div class="kv">${aN.toFixed(1)} <span class="ku">Sab</span></div></div>`;
+
+  const maxRT = Math.max(rt60c, rt60t, 2)*1.1;
+  document.getElementById('rtvis').innerHTML = `
+    <div class="rtrow"><span class="rtlbl">Current</span><div class="rttrack"><div class="rtfill" style="width:${Math.min(100,rt60c/maxRT*100).toFixed(1)}%;background:#e24b4a"></div></div><span class="rtv">${rt60c.toFixed(2)}s</span></div>
+    <div class="rtrow"><span class="rtlbl">Target</span><div class="rttrack"><div class="rtfill" style="width:${Math.min(100,rt60t/maxRT*100).toFixed(1)}%;background:#111"></div></div><span class="rtv">${rt60t.toFixed(2)}s</span></div>
+    <div style="font-size:10px;color:var(--color-text-tertiary);margin-top:9px">Target formula: 0.32 × log₁₀(${V.toFixed(0)}) − 0.17 · Sabine: RT60 = 0.161 × V / A</div>`;
+
+  const cheapest = p12 < p24 ? '12' : '24';
+  document.getElementById('opts').innerHTML = `
+    <div class="opt ${cheapest==='12'?'best':''}">
+      ${cheapest==='12'?'<div class="obadge">Best price</div>':''}
+      <div class="oname">12 mm only</div>
+      <div class="orow"><span class="olk">Area needed</span><span class="olv">${m12.toFixed(1)} m²</span></div>
+      <div class="orow"><span class="olk">Panels</span><span class="olv">${panels12} pcs</span></div>
+      <div class="orow"><span class="olk">NRC</span><span class="olv">0.60</span></div>
+      <div class="orow"><span class="olk">€/m²</span><span class="olv">€84</span></div>
+      <div class="oprice">€${p12.toLocaleString()}<div class="opsub">€282 × ${panels12} panels</div></div>
+    </div>
+    <div class="opt ${cheapest==='24'?'best':''}">
+      ${cheapest==='24'?'<div class="obadge">Best price</div>':''}
+      <div class="oname">24 mm only</div>
+      <div class="orow"><span class="olk">Area needed</span><span class="olv">${m24.toFixed(1)} m²</span></div>
+      <div class="orow"><span class="olk">Panels</span><span class="olv">${panels24} pcs</span></div>
+      <div class="orow"><span class="olk">NRC</span><span class="olv">0.90</span></div>
+      <div class="orow"><span class="olk">€/m²</span><span class="olv">€119</span></div>
+      <div class="oprice">€${p24.toLocaleString()}<div class="opsub">€514 × ${panels24} panels</div></div>
+    </div>
+    <div class="opt">
+      <div class="oname">Optimal mix</div>
+      <div class="orow"><span class="olk">See slider below</span><span class="olv">↓</span></div>
+      <div class="orow"><span class="olk">Adjustable</span><span class="olv">—</span></div>
+      <div class="orow"><span class="olk">NRC</span><span class="olv">blended</span></div>
+      <div class="orow"><span class="olk">€/m²</span><span class="olv">mixed</span></div>
+      <div class="oprice" id="mix-price-top">—<div class="opsub">adjust slider</div></div>
+    </div>`;
+
+  updateMix(document.getElementById('mix-sl').value);
+
+  const sel_m2 = prod==='24' ? m24 : m12;
+  let rc='rec-ok', rt='Standard acoustic treatment', rb;
+  if(pct>=50){rc='rec-hi';rt='Intensive treatment — consult the Impact Acoustic team';}
+  else if(pct>=30){rc='rec-md';rt='Medium intervention — combine walls and ceiling';}
+  rb = `${pct.toFixed(1)}% of total surface area needs treatment (${sel_m2.toFixed(1)} m²). Quick 30% check: ${(sT*0.3).toFixed(1)} m² minimum · Precise calculation: ${sel_m2.toFixed(1)} m².`;
+  document.getElementById('rec-box').innerHTML = `<div class="rec ${rc}"><div class="rec-t">${rt}</div><div class="rec-b">${rb}</div></div>`;
+  document.getElementById('foot-note').innerHTML = `* Acoustic values measured with 300 mm air cavity · ASTM C423 · 100% PET, 60% recycled content · Swiss Engineered`;
+  document.getElementById('res').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function updateMix(v){
+  v = parseInt(v);
+  document.getElementById('mix-pct').textContent = v+'%';
+  document.getElementById('seg24').style.width = v+'%';
+  document.getElementById('seg12').style.width = (100-v)+'%';
+  document.getElementById('mix-sl').value = v;
+  if(aN===0) return;
+  const share24 = v/100, share12 = 1-share24;
+  const blendNRC = share24*0.90 + share12*0.60;
+  const totalM2 = aN/blendNRC;
+  const m2_24 = totalM2*share24, m2_12 = totalM2*share12;
+  const p24 = Math.ceil(m2_24/4.32)*514;
+  const p12 = Math.ceil(m2_12/3.36)*282;
+  const total = p24+p12;
+  const panels24 = Math.ceil(m2_24/4.32), panels12 = Math.ceil(m2_12/3.36);
+  const mixSumEl = document.getElementById('mix-summary');
+  if(mixSumEl){
+    mixSumEl.innerHTML = `
+      <div class="ms"><div class="mslb">24 mm panels</div><div class="msv">${panels24} pcs · ${m2_24.toFixed(1)} m²</div></div>
+      <div class="ms"><div class="mslb">12 mm panels</div><div class="msv">${panels12} pcs · ${m2_12.toFixed(1)} m²</div></div>
+      <div class="ms" style="background:var(--color-background-secondary)"><div class="mslb">Total cost</div><div class="msv" style="font-size:15px">€${total.toLocaleString()}</div></div>`;
+  }
+  const mpTop = document.getElementById('mix-price-top');
+  if(mpTop) mpTop.innerHTML = `€${total.toLocaleString()}<div class="opsub">${v}% / ${100-v}% split</div>`;
+}
+</script>
